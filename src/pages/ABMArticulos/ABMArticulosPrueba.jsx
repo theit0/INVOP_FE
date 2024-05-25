@@ -20,13 +20,17 @@ const ABMArticulosPrueba = () => {
       "punto_pedido",
       "stock_seguridad" */
     ];
+    const relatedObjects = [
+      { apiName: "familia", fieldName: "familiaArticulo" },
+      { apiName: "proveedor", fieldName: "proveedorPredeterminado" }
+    ];
     const nonEditableFields = [
       "id",
       "fechaAlta",
       "fechaModificacion",
       "fechaBaja",
-      /* "modelo_inventario_id",
-      "lote_optimo",
+      "modeloInventario"
+      /*"lote_optimo",
       "punto_pedido",
       "stock_seguridad" */
     ];
@@ -37,7 +41,8 @@ const ABMArticulosPrueba = () => {
           entityName={entityName} 
           apiUrl={apiUrl} 
           columns={columns} 
-          nonEditableFields={nonEditableFields} 
+          nonEditableFields={nonEditableFields}
+          relatedObjects={relatedObjects}
         />
       </div>
     );

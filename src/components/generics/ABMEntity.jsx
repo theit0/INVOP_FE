@@ -4,7 +4,7 @@ import DeleteButton from "../../components/delete/deleteButton/DeleteButton";
 import EditButton from "../../components/edit/editButton/EditButton";
 import EditModalGeneric from './EditModalGeneric';
 
-const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields }) => {
+const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, relatedObjects }) => {
   const [entities, setEntities] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedEntity, setSelectedEntity] = useState(null);
@@ -18,16 +18,19 @@ const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields }) => {
     const response = await fetch(`${apiUrl}/${entityName}`);
     const data = await response.json();
     setEntities(data);
+    fetchRelatedData(data);
+  };
 
-    // Fetch related data for dropdowns if necessary
-    if (entityName === 'articulo') {
-      const [proveedores, familias] = await Promise.all([
-        fetch(`${apiUrl}/proveedor`).then(res => res.json()),
-        fetch(`${apiUrl}/familia`).then(res => res.json()),
-      ]);
-      setRelatedData({ proveedores, familias });
-    }
-    console.log(data)
+  const fetchRelatedData = async (entities) => {
+    const relatedPromises = relatedObjects.map(async obj => {
+      const response = await fetch(`${apiUrl}/${obj.apiName}`);
+      const data = await response.json();
+      return { [obj.fieldName]: data };
+    });
+
+    const relatedResults = await Promise.all(relatedPromises);
+    const relatedData = relatedResults.reduce((acc, curr) => ({ ...acc, ...curr }), {});
+    setRelatedData(relatedData);
   };
 
   const handleEditClick = (entity) => {
@@ -51,8 +54,8 @@ const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields }) => {
     if (typeof entity[column] === 'object' && entity[column] !== null) {
       return entity[column].nombre || entity[column].id || '';
     }
-    if(entity[column]===null || entity[column]===null){
-        return "-"
+    if (entity[column] === null || entity[column] === undefined) {
+      return "-";
     }
     return entity[column];
   };
@@ -75,7 +78,6 @@ const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields }) => {
             {columns.map(column => (
               <th key={column}>{column}</th>
             ))}
-            
             <th>Acciones</th>
           </tr>
         </thead>

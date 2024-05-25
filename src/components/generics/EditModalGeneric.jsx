@@ -1,12 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../components/edit/editModal/EditModal.css';
 
 const EditModalGeneric = ({ entity, onClose, onUpdate, nonEditableFields, relatedData }) => {
   const [formValues, setFormValues] = useState({ ...entity });
 
+  useEffect(() => {
+    setFormValues({ ...entity });
+  }, [entity]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value });
+
+    // Check if the field is a related field and handle it accordingly
+    if (relatedData[name]) {
+      const selectedItem = relatedData[name].find(item => item.id.toString() === value);
+      setFormValues({ ...formValues, [name]: selectedItem });
+    } else {
+      setFormValues({ ...formValues, [name]: value });
+    }
   };
 
   const handleSubmit = (e) => {
@@ -19,21 +30,14 @@ const EditModalGeneric = ({ entity, onClose, onUpdate, nonEditableFields, relate
       return <input type="text" name={field} value={formValues[field]} readOnly />;
     }
 
-    if (field === 'proveedor_determinado_id') {
-      return (
-        <select name={field} value={formValues[field]} onChange={handleChange}>
-          {relatedData.proveedores.map(proveedor => (
-            <option key={proveedor.id} value={proveedor.id}>{proveedor.nombre}</option>
-          ))}
-        </select>
-      );
-    }
+    if (relatedData[field]) {
+      const relatedItems = relatedData[field];
+      const selectedValue = formValues[field]?.id || '';
 
-    if (field === 'familia_articulo_id') {
       return (
-        <select name={field} value={formValues[field]} onChange={handleChange}>
-          {relatedData.familias.map(familia => (
-            <option key={familia.id} value={familia.id}>{familia.nombre}</option>
+        <select name={field} value={selectedValue} onChange={handleChange}>
+          {relatedItems.map(item => (
+            <option key={item.id} value={item.id}>{item.nombre}</option>
           ))}
         </select>
       );
