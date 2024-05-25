@@ -1,0 +1,36 @@
+.abm-entity {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.crear-entity {
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+    width: fit-content;
+    padding: .25rem .5rem;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.btn-accion {
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+}
+  
+.entity-table {
+    width: 100%;
+    font-size: 16px;
+}
+
+.entity-table th, .entity-table td {
+    padding: .5rem;
+    text-align: left;
+}
+
+.entity-table th {
+    background-color: #f2f2f2;
+}
