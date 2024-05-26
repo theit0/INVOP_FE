@@ -16,9 +16,9 @@ const ABMArticulosPrueba = () => {
       "modeloInventario",
       "familiaArticulo",
       "proveedorPredeterminado",
-      /* "lote_optimo",
-      "punto_pedido",
-      "stock_seguridad" */
+      /* "loteOptimo",
+      "puntoPedido",
+      "stockSeguridad" */
     ];
 
 
