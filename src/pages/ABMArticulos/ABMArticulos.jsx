@@ -38,6 +38,17 @@ const ABMArticulos = () => {
       "stockSeguridad"
     ];
 
+    const createExcludedFields = [
+      "id",
+      "fechaAlta",
+      "fechaBaja",
+      "fechaModificacion",
+      "modeloInventario",
+      "valorLoteOptimo",
+      "valorPuntoPedido",
+      "stockSeguridad"
+    ]
+
     /* Recibimos los objetos del ABM para agregarle los atributos del DTO */
     const extraDataFetch = async (objects) => {
       const ids = objects.map(obj => obj.id);
@@ -66,6 +77,7 @@ const ABMArticulos = () => {
           nonEditableFields={nonEditableFields}
           relatedObjects={relatedObjects}
           extraDataFetch={extraDataFetch}
+          createExcludedFields={createExcludedFields}
         />
       </div>
     );
