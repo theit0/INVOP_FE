@@ -2,16 +2,20 @@ import React, { useState, useEffect } from 'react';
 import '../../components/edit/editModal/EditModal.css';
 
 const EditModalGeneric = ({ entity, onClose, onUpdate, nonEditableFields, relatedData }) => {
+  
+  /* Guardamos el valor de los inputs del form, es decir, el objeto en si*/
   const [formValues, setFormValues] = useState({ ...entity });
+
 
   useEffect(() => {
     setFormValues({ ...entity });
   }, [entity]);
 
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // Check if the field is a related field and handle it accordingly
+    /* Checkeamos si clickeo una de las opciones de la lista para poder guardar los cambios en el objeto formValues */
     if (relatedData[name]) {
       const selectedItem = relatedData[name].find(item => item.id.toString() === value);
       setFormValues({ ...formValues, [name]: selectedItem });
@@ -25,11 +29,14 @@ const EditModalGeneric = ({ entity, onClose, onUpdate, nonEditableFields, relate
     onUpdate(formValues);
   };
 
+  /* Renderizar input */
   const renderInputField = (field) => {
+    /* Hacemos que se deshabiliten los inputs que no se pueden modificar  */
     if (nonEditableFields.includes(field)) {
       return <input type="text" name={field} value={formValues[field]} readOnly />;
     }
 
+    /* Si tenemos info relacionada la vamos a obtener y la vamos a desplegar en forma de lista para poder seleccionarla */
     if (relatedData[field]) {
       const relatedItems = relatedData[field];
       const selectedValue = formValues[field]?.id || '';
@@ -42,7 +49,7 @@ const EditModalGeneric = ({ entity, onClose, onUpdate, nonEditableFields, relate
         </select>
       );
     }
-
+    /* Renderizamos el input que corresponde al atributo recibido */
     return <input type="text" name={field} value={formValues[field]} onChange={handleChange} />;
   };
 
