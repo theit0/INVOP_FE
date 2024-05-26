@@ -6,30 +6,34 @@ const ABMArticulosPrueba = () => {
     const entityName = "articulo";
     const columns = [
       "id",
+      "nombre",
+      "stockActual",
       "fechaAlta",
       "fechaBaja",
       "fechaModificacion",
       "cgi",
       "descripcion",
-      "nombre",
-      "stockActual",
+      "modeloInventario",
       "familiaArticulo",
       "proveedorPredeterminado",
-      /* "modelo_inventario_id", */
       /* "lote_optimo",
       "punto_pedido",
       "stock_seguridad" */
     ];
+
+
     const relatedObjects = [
+      { apiName: "modInv", fieldName: "modeloInventario" },
       { apiName: "familia", fieldName: "familiaArticulo" },
-      { apiName: "proveedor", fieldName: "proveedorPredeterminado" }
+      { apiName: "proveedor", fieldName: "proveedorPredeterminado" },
     ];
+
+
     const nonEditableFields = [
       "id",
       "fechaAlta",
       "fechaModificacion",
       "fechaBaja",
-      "modeloInventario"
       /*"lote_optimo",
       "punto_pedido",
       "stock_seguridad" */
