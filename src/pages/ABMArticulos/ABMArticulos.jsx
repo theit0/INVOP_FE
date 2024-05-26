@@ -59,6 +59,8 @@ const ABMArticulos = () => {
       /* Esperamos la data */
       const dtoDataArray = await Promise.all(dtoDataPromises);
 
+      console.log(dtoDataArray)
+
       /* Les agregamos los nuevos valores buscados a los objetos y retornamos todo en uno solo*/
       return objects.map((obj, index) => ({
         ...obj,

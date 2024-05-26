@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "../components/edit/editModal/EditModal.css";
+import "../components/modal/Modal.css"
 
 const CreateModalGeneric = ({ onClose, onCreate, relatedData, columns, createExcludedFields }) => {
     const [formValues, setFormValues] = useState(

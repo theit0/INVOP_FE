@@ -42,6 +42,7 @@ tr:hover{
     font-size: 1rem;
     border: none;
     cursor: pointer;
+    background: none;
 }
   
 .entity-table {
@@ -49,6 +50,7 @@ tr:hover{
     width: 100%;
     font-size: 14px;
 }
+
 
 .entity-table th, .entity-table td {
     padding: .5rem;
