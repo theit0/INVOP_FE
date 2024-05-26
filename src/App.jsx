@@ -3,7 +3,7 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import { BrowserRouter as Router } from "react-router-dom";
-import ABMArticulosPrueba from "./pages/ABMArticulos/ABMArticulosPrueba";
+import ABMArticulos from "./pages/ABMArticulos/ABMArticulos";
 function App() {
   return (
     <>
@@ -11,7 +11,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/abm-articulos" element={<ABMArticulosPrueba />} />
+          <Route path="/abm-articulos" element={<ABMArticulos />} />
         </Routes>
       </Router>
     </>

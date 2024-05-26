@@ -11,10 +11,13 @@
     overflow-y: auto; /* Agregamos scroll vertical si es necesario */
 }
 
+.modal-label {
+    margin-bottom: .25rem;
+}
+
 .modal-content {
     background: white;
     padding: 20px;
-    border-radius: 8px;
     max-width: 600px;
     width: 100%;
     max-height: calc(100% - 40px); /* Restamos el padding de los bordes para evitar que el modal exceda la pantalla */
@@ -37,7 +40,8 @@
 .modal-content input, .modal-content select {
     width: 100%;
     padding: 8px;
-    margin-bottom: .5rem;
+    margin: .5rem 0;
+    font-size: 1rem;
 }
 
 .modal-actions {
