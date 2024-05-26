@@ -6,7 +6,6 @@ import EditModalGeneric from './EditModalGeneric';
 import CreateModalGeneric from './CreateModalGeneric';
 import DeleteModalGeneric from './DeleteModalGeneric';
 import CreateButton from '../components/create/createButton/CreateButton';
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import {
@@ -67,8 +66,11 @@ const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, relatedObje
 
     const fireErrorWindow = () => {
         Swal.fire({
-            title:"Hubo un error",
-            icon:"error"
+            text:`Hubo un error. Intentá nuevamente`,
+            icon:"error",
+            showConfirmButton:false,
+            timer:2000,
+            position: "top",
         })
     }
     
@@ -79,8 +81,15 @@ const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, relatedObje
             setEntities(entities.map(entity => entity.id === updatedEntity.id ? updatedEntity : entity));
             handleModalClose();
             Swal.fire({
-                title:`El ${entityName} se actualizó correctamente`,
-                icon:"success"
+                text:`El ${entityName} se actualizó correctamente`,
+                background:"black",
+                color:"white",
+                padding:"1rem 2rem",
+                icon:"success",
+                toast:true,
+                timer:2000,
+                position: "top",
+                showConfirmButton:false
             })
         } catch (error) {
             fireErrorWindow();
@@ -95,8 +104,15 @@ const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, relatedObje
             setEntities([...entities, createdEntity]);
             handleCreateModalClose();
             Swal.fire({
-                title:`El ${entityName} se creó correctamente`,
-                icon:"success"
+                text:`El ${entityName} se creó correctamente`,
+                background:"black",
+                color:"white",
+                padding:"1rem 2rem",
+                icon:"success",
+                toast:true,
+                timer:1500,
+                position: "top",
+                showConfirmButton:false
             })
         } catch (error) {
             fireErrorWindow();
@@ -119,15 +135,29 @@ const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, relatedObje
             setEntities(entities.filter(entity => entity.id !== id));
             handleDeleteModalClose();
             Swal.fire({
-                title:`El ${entityName} se eliminó correctamente`,
-                icon:"success"
+                text:`El ${entityName} se eliminó correctamente`,
+                background:"black",
+                color:"white",
+                padding:"1rem 2rem",
+                icon:"success",
+                toast:true,
+                timer:1500,
+                position: "top",
+                showConfirmButton:false
             })
         } catch (error) {
             console.error(error.message);
             handleDeleteModalClose();
             Swal.fire({
-                title:`El ${entityName} se encuentra en una orden de compra pendiente o en curso`,
-                icon:"warning"
+                text:`El ${entityName} se encuentra en una orden de compra pendiente o en curso`,
+                background:"black",
+                color:"white",
+                padding:"1rem 2rem",
+                icon:"warning",
+                toast:true,
+                timer:1500,
+                position: "top",
+                showConfirmButton:false
             })
         }
     };
