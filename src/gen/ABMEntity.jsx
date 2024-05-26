@@ -6,6 +6,8 @@ import EditModalGeneric from './EditModalGeneric';
 import CreateModalGeneric from './CreateModalGeneric';
 import DeleteModalGeneric from './DeleteModalGeneric';
 import CreateButton from '../components/create/createButton/CreateButton';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import {
     fetchEntities,
@@ -16,6 +18,7 @@ import {
 } from '../services/entityService';
 
 import { getColumnValue } from '../utils/entityUtils';
+import Swal from 'sweetalert2';
 
 const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, relatedObjects, extraDataFetch, createExcludedFields }) => {
 
@@ -62,13 +65,25 @@ const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, relatedObje
         setSelectedEntity(null);
     };
 
+    const fireErrorWindow = () => {
+        Swal.fire({
+            title:"Hubo un error",
+            icon:"error"
+        })
+    }
+    
     /* Función que se ejecuta cuando confirmamos la modificación */
     const handleUpdateEntity = async (updatedEntity) => {
         try {
             await updateEntity(apiUrl, entityName, updatedEntity);
             setEntities(entities.map(entity => entity.id === updatedEntity.id ? updatedEntity : entity));
             handleModalClose();
+            Swal.fire({
+                title:`El ${entityName} se actualizó correctamente`,
+                icon:"success"
+            })
         } catch (error) {
+            fireErrorWindow();
             console.error(error.message);
         }
     };
@@ -79,7 +94,12 @@ const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, relatedObje
             const createdEntity = await createEntity(apiUrl, entityName, newEntity);
             setEntities([...entities, createdEntity]);
             handleCreateModalClose();
+            Swal.fire({
+                title:`El ${entityName} se creó correctamente`,
+                icon:"success"
+            })
         } catch (error) {
+            fireErrorWindow();
             console.error(error.message);
         }
     };
@@ -98,9 +118,17 @@ const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, relatedObje
             await deleteEntity(apiUrl, entityName, id);
             setEntities(entities.filter(entity => entity.id !== id));
             handleDeleteModalClose();
+            Swal.fire({
+                title:`El ${entityName} se eliminó correctamente`,
+                icon:"success"
+            })
         } catch (error) {
             console.error(error.message);
             handleDeleteModalClose();
+            Swal.fire({
+                title:`El ${entityName} se encuentra en una orden de compra pendiente o en curso`,
+                icon:"warning"
+            })
         }
     };
 
