@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { CgAdd } from "react-icons/cg";
-import DeleteButton from "../delete/deleteButton/DeleteButton";
-import EditButton from "../edit/editButton/EditButton";
+import DeleteButton from "../components/delete/deleteButton/DeleteButton";
+import EditButton from "../components/edit/editButton/EditButton";
 import EditModalGeneric from './EditModalGeneric';
 
 

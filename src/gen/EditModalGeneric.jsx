@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../../components/edit/editModal/EditModal.css';
-
+import "../components/edit/editModal/EditModal.css"
 const EditModalGeneric = ({ entity, onClose, onUpdate, nonEditableFields, relatedData }) => {
   
   /* Guardamos el valor de los inputs del form, es decir, el objeto en si*/

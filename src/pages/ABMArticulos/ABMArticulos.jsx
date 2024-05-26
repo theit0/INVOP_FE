@@ -1,7 +1,7 @@
-import ABMEntity from "../../components/generics/ABMEntity";
+import ABMEntity from "../../gen/ABMEntity";
 import "./ABMArticulos.css"
 
-const ABMArticulosPrueba = () => {
+const ABMArticulos = () => {
 
     const apiUrl = "http://localhost:8080";
     const entityName = "articulo";
@@ -33,6 +33,9 @@ const ABMArticulosPrueba = () => {
       "fechaAlta",
       "fechaModificacion",
       "fechaBaja",
+      "valorLoteOptimo",
+      "valorPuntoPedido",
+      "stockSeguridad"
     ];
 
     /* Recibimos los objetos del ABM para agregarle los atributos del DTO */
@@ -68,4 +71,4 @@ const ABMArticulosPrueba = () => {
     );
 }
 
-export default ABMArticulosPrueba;
+export default ABMArticulos;
