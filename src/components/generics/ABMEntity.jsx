@@ -4,6 +4,7 @@ import DeleteButton from "../delete/deleteButton/DeleteButton";
 import EditButton from "../edit/editButton/EditButton";
 import EditModalGeneric from './EditModalGeneric';
 
+
 const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, relatedObjects, extraDataFetch }) => {
 
     /* Donde almacenamos todos los objetos de la entidad pasada como parametro */
@@ -68,13 +69,25 @@ const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, relatedObje
   };
 
   /* Funcion que se ejecuta cuando confirmamos la modificacion */
-  const handleUpdateEntity = (updatedEntity) => {
-    setEntities(entities.map(entity => 
-      entity.id === updatedEntity.id ? updatedEntity : entity
-    ));
-    handleModalClose();
-  };
+  const handleUpdateEntity = async (updatedEntity) => {
+    const response = await fetch(`${apiUrl}/${entityName}/${updatedEntity.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedEntity),
+    });
 
+    if (response.ok) {
+      setEntities(entities.map(entity => 
+        entity.id === updatedEntity.id ? updatedEntity : entity
+      ));
+      handleModalClose();
+    } else {
+      console.error('Error updating entity', response.statusText);
+      // Handle error appropriately
+    }
+  };
   /* Obtenemos la informacion de una atributo */
   const getColumnValue = (entity, column) => {
       /* Si el atributo es un objeto obtenemos el nombre de este */
@@ -91,7 +104,7 @@ const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, relatedObje
 
   return (
       <section className="abm-entity">
-        <div>
+        <div className='abm-title'>
           <h1>ABM {entityName}</h1>
           <p>Consultar, modificar, crear y eliminar {entityName}.</p>
         </div>
