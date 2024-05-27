@@ -1,3 +1,4 @@
+// services/entityService.js
 
 export const fetchEntities = async (apiUrl, entityName, extraDataFetch) => {
     const response = await fetch(`${apiUrl}/${entityName}`);
@@ -10,7 +11,9 @@ export const fetchEntities = async (apiUrl, entityName, extraDataFetch) => {
     }
 };
 
-export const fetchRelatedData = async (apiUrl, relatedObjects) => {
+export const fetchRelatedData = async (apiUrl, relatedObjects = []) => {
+    if (relatedObjects.length === 0) return {};
+    
     const relatedPromises = relatedObjects.map(async obj => {
         const response = await fetch(`${apiUrl}/${obj.apiName}`);
         const data = await response.json();

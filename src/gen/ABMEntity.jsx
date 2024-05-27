@@ -148,17 +148,19 @@ const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, relatedObje
         } catch (error) {
             console.error(error.message);
             handleDeleteModalClose();
-            Swal.fire({
-                text:`El ${entityName} se encuentra en una orden de compra pendiente o en curso`,
-                background:"black",
-                color:"white",
-                padding:"1rem 2rem",
-                icon:"warning",
-                toast:true,
-                timer:1500,
-                position: "top",
-                showConfirmButton:false
-            })
+            if(entityName === "articulo"){
+                Swal.fire({
+                    text:`El ${entityName} se encuentra en una orden de compra pendiente o en curso`,
+                    background:"black",
+                    color:"white",
+                    padding:"1rem 2rem",
+                    icon:"warning",
+                    toast:true,
+                    timer:1500,
+                    position: "top",
+                    showConfirmButton:false
+                })
+            }
         }
     };
 
