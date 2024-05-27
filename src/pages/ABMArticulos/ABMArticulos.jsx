@@ -1,7 +1,14 @@
+import { useState } from "react";
+import CalculateButton from "../../components/calculate/CalculateButton";
 import ABMEntity from "../../gen/ABMEntity";
 import "./ABMArticulos.css"
+import Swal from "sweetalert2";
+import CalcularCantidadModal from "./CalcularCantidadModal";
 
 const ABMArticulos = () => {
+
+    const [isCalcularModalOpen, setIsCalcularModalOpen] = useState(false);
+    const [selectedEntity, setSelectedEntity] = useState(null);
 
     const apiUrl = "http://localhost:8080";
     const entityName = "articulo";
@@ -68,6 +75,40 @@ const ABMArticulos = () => {
       }));
     };
 
+    const handleCalcularCantidadVendida = async (id, fechaDesde, fechaHasta) => {
+      try {
+        const response = await fetch(`${apiUrl}/articulo/demandaHistorica/${id}?fechaDesde=${fechaDesde.value}&fechaHasta=${fechaHasta.value}`);
+        const data = await response.json();
+        Swal.fire({
+          title: `CV: ${data} artículos`,
+          background: "black",
+          color: "white",
+          padding: "1rem 2rem",
+          icon: "info",
+          toast: true,
+          position:"center",
+          confirmButtonColor:"#2596be",
+          confirmButtonText:"Aceptar"
+        });
+      } catch (error) {
+        Swal.fire({
+          text: `Error al calcular la cantidad vendida.`,
+          icon: "error",
+          showConfirmButton: false,
+          timer: 2000,
+          position: "top",
+        });
+        console.error(error.message);
+      }
+    };
+
+    const renderArticuloActions = (entity) => (
+      <CalculateButton onClick={() => {
+          setSelectedEntity(entity);
+          setIsCalcularModalOpen(true);
+      }}/>
+    );
+
     return (
       <div>
         <ABMEntity 
@@ -78,7 +119,16 @@ const ABMArticulos = () => {
           relatedObjects={relatedObjects}
           extraDataFetch={extraDataFetch}
           createExcludedFields={createExcludedFields}
+          renderActions={renderArticuloActions}
         />
+        {isCalcularModalOpen && (
+            <CalcularCantidadModal
+                isOpen={isCalcularModalOpen}
+                onClose={() => setIsCalcularModalOpen(false)}
+                onCalcular={handleCalcularCantidadVendida}
+                entity={selectedEntity}
+            />
+        )}
       </div>
     );
 }

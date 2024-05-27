@@ -19,7 +19,7 @@ import {
 import { getColumnValue } from '../utils/entityUtils';
 import Swal from 'sweetalert2';
 
-const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, relatedObjects, extraDataFetch, createExcludedFields }) => {
+const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, relatedObjects, extraDataFetch, createExcludedFields,renderActions  }) => {
 
     /* Donde almacenamos todos los objetos de la entidad pasada como parametro */
     const [entities, setEntities] = useState([]);
@@ -201,6 +201,7 @@ const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, relatedObje
                             <td className='action-btns'>
                                 <EditButton onClick={() => handleEditClick(entity)} />
                                 <DeleteButton onClick={() => handleDeleteClick(entity)} />
+                                {renderActions && renderActions(entity)}
                             </td>
                         </tr>
                     ))}
