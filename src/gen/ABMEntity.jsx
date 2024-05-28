@@ -185,12 +185,12 @@ const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, relatedObje
 
             <table className="entity-table">
                 <thead>
-                    <tr>
+                    
                         {columns.map(column => (
                             <th key={column}>{column}</th>
                         ))}
                         <th>Acciones</th>
-                    </tr>
+                    
                 </thead>
                 <tbody>
                     {entities.map((entity) => (
