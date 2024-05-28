@@ -21,11 +21,11 @@ th{
 }
 
 td{ 
-    border-bottom: 1px solid rgb(212, 212, 212);
+    border-bottom: 1px solid rgb(230, 230, 230);
 }
 
 tr:hover{
-    background-color: rgb(212, 212, 212);
+    background-color: rgb(230, 230, 230);
 }
 
 .crear-entity {
@@ -36,12 +36,15 @@ tr:hover{
     padding: .25rem .5rem;
     cursor: pointer;
     font-size: 14px;
+    background-color: white;
+    border: 1px solid black;
 }
 
 .btn-accion {
     font-size: 1rem;
     border: none;
     cursor: pointer;
+    background: none;
 }
   
 .entity-table {
@@ -50,11 +53,9 @@ tr:hover{
     font-size: 14px;
 }
 
+
 .entity-table th, .entity-table td {
     padding: .5rem;
     text-align: left;
 }
 
-.entity-table th {
-    background-color: #f2f2f2;
-}

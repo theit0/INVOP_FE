@@ -1,5 +1,5 @@
 import React from 'react';
-import "../components/edit/editModal/EditModal.css";
+import "../components/modal/Modal.css"
 
 const DeleteModalGeneric = ({ onClose, onDelete, entity }) => {
   return (
