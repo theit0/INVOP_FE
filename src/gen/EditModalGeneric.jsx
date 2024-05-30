@@ -32,7 +32,7 @@ const EditModalGeneric = ({ entity, onClose, onUpdate, nonEditableFields, relate
   const renderInputField = (field) => {
     /* Hacemos que se deshabiliten los inputs que no se pueden modificar  */
     if (nonEditableFields.includes(field)) {
-      return <input type="text" name={field} value={formValues[field]} readOnly />;
+      return null;
     }
 
     /* Si tenemos info relacionada la vamos a obtener y la vamos a desplegar en forma de lista para poder seleccionarla */
@@ -58,10 +58,12 @@ const EditModalGeneric = ({ entity, onClose, onUpdate, nonEditableFields, relate
         <h2>Editar {entity.nombre}</h2>
         <form onSubmit={handleSubmit}>
           {Object.keys(formValues).map(field => (
-            <div key={field}>
-              <label>{field}</label>
-              {renderInputField(field)}
-            </div>
+              !nonEditableFields.includes(field) && (
+                <div key={field}>
+                <label>{field}</label>
+                {renderInputField(field)}
+              </div>
+              )
           ))}
           <div className="modal-actions">
             <button type="submit">Confirmar</button>
