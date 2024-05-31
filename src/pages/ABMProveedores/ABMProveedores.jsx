@@ -10,21 +10,26 @@ const ABMProveedores = () => {
         "fechaBaja",
         "fechaModificacion",
         "nombre",
-        "direccion"
+        "direccion",
+        "telefono",
+        "email"
     ]
     const nonEditableFields = [
         "id",
         "fechaAlta",
         "fechaBaja",
         "fechaModificacion",
+        "demoraProveedorArticulos"
     ]
     const createExcludedFields = [
         "id",
         "fechaAlta",
         "fechaBaja",
         "fechaModificacion",
+        "demoraProveedorArticulos"
     ]
 
+    
   return (
     <div>
         <ABMEntity 

@@ -33,6 +33,7 @@ export const updateEntity = async (apiUrl, entityName, updatedEntity) => {
         body: JSON.stringify(updatedEntity),
     });
 
+
     if (!response.ok) {
         throw new Error('Error updating entity');
     }
@@ -61,6 +62,7 @@ export const deleteEntity = async (apiUrl, entityName, id) => {
             'Content-Type': 'application/json',
         },
     });
+
 
     if (!response.ok) {
         throw new Error('Error deleting entity');

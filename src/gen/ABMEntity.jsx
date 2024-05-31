@@ -19,11 +19,11 @@ import {
 import { getColumnValue } from '../utils/entityUtils';
 import Swal from 'sweetalert2';
 
-const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, relatedObjects, extraDataFetch, createExcludedFields,renderActions  }) => {
+const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, relatedObjects, extraDataFetch, createExcludedFields,renderActions,objects  }) => {
 
 
     /* Donde almacenamos todos los objetos de la entidad pasada como parametro */
-    const [entities, setEntities] = useState([]);
+    const [entities, setEntities] = useState([]||objects);
 
     /* Variable de estado que usamos para cerrar o abrir el modal */
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,13 +44,12 @@ const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, relatedObje
     /* Porción de codigo que se va a ejecutar cuando se monte el componente, en este caso fetchEntities */
     useEffect(() => {
         fetchAllData();
-    }, []);
+    }, [objects]);
 
     const fetchAllData = async () => {
         const entities = await fetchEntities(apiUrl, entityName, extraDataFetch);
         setEntities(entities);
-        console.log(entities)
-
+       
         const relatedData = await fetchRelatedData(apiUrl, relatedObjects);
         setRelatedData(relatedData);
     };
@@ -112,7 +111,7 @@ const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, relatedObje
                 padding:"1rem 2rem",
                 icon:"success",
                 toast:true,
-                timer:1500,
+                timer:2000,
                 position: "top",
                 showConfirmButton:false
             })
@@ -143,7 +142,7 @@ const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, relatedObje
                 padding:"1rem 2rem",
                 icon:"success",
                 toast:true,
-                timer:1500,
+                timer:2000,
                 position: "top",
                 showConfirmButton:false
             })
@@ -158,7 +157,7 @@ const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, relatedObje
                     padding:"1rem 2rem",
                     icon:"warning",
                     toast:true,
-                    timer:1500,
+                    timer:2000,
                     position: "top",
                     showConfirmButton:false
                 })
