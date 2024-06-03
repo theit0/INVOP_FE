@@ -11,6 +11,14 @@ export const fetchEntities = async (apiUrl, entityName, extraDataFetch) => {
     }
 };
 
+export const fetchEntity = async (apiUrl, entityName, id) => {
+    const response = await fetch(`${apiUrl}/${entityName}/${id}`);
+    const data = await response.json();
+
+    
+    return data;
+};
+
 export const fetchRelatedData = async (apiUrl, relatedObjects = []) => {
     if (relatedObjects.length === 0) return {};
     

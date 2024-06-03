@@ -13,17 +13,19 @@ import {
     fetchRelatedData,
     updateEntity,
     createEntity,
-    deleteEntity
+    deleteEntity,
+    fetchEntity
 } from '../services/entityService';
 
 import { getColumnValue } from '../utils/entityUtils';
 import Swal from 'sweetalert2';
 
-const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, relatedObjects, extraDataFetch, createExcludedFields,renderActions,objects  }) => {
+const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, relatedObjects, extraDataFetch, createExcludedFields,renderActions,objects,extraABM,fatherEntity,fatherApiName }) => {
 
-
+    
     /* Donde almacenamos todos los objetos de la entidad pasada como parametro */
     const [entities, setEntities] = useState([]||objects);
+    
 
     /* Variable de estado que usamos para cerrar o abrir el modal */
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -48,8 +50,10 @@ const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, relatedObje
 
     const fetchAllData = async () => {
         const entities = await fetchEntities(apiUrl, entityName, extraDataFetch);
+        
         setEntities(entities);
-       
+        
+        
         const relatedData = await fetchRelatedData(apiUrl, relatedObjects);
         setRelatedData(relatedData);
     };
@@ -79,6 +83,9 @@ const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, relatedObje
     const handleUpdateEntity = async (updatedEntity) => {
         try {
             await updateEntity(apiUrl, entityName, updatedEntity);
+            if(fatherEntity){
+                console.log(fatherEntity)
+            }
             setEntities(entities.map(entity => entity.id === updatedEntity.id ? updatedEntity : entity));
             handleModalClose();
             Swal.fire({
@@ -102,6 +109,12 @@ const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, relatedObje
     const handleCreateEntity = async (newEntity) => {
         try {
             const createdEntity = await createEntity(apiUrl, entityName, newEntity);
+            if(fatherEntity){
+                const updatedProveedor = await fetchEntity(apiUrl,fatherApiName,fatherEntity.id)
+                updatedProveedor.demoraProveedorArticulos.push(createdEntity)
+                updateEntity(apiUrl,fatherApiName,updatedProveedor)
+                console.log(updatedProveedor)
+            }
             setEntities([...entities, createdEntity]);
             handleCreateModalClose();
             Swal.fire({
@@ -216,6 +229,7 @@ const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, relatedObje
                     onUpdate={handleUpdateEntity}
                     nonEditableFields={nonEditableFields}
                     relatedData={relatedData}
+                    extraABM={extraABM}
                 />
             )}
 
@@ -226,6 +240,8 @@ const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, relatedObje
                     relatedData={relatedData}
                     columns={columns}
                     createExcludedFields={createExcludedFields}
+                    extraABM={extraABM}
+                    fatherEntity={fatherEntity}
                 />
             )}
 

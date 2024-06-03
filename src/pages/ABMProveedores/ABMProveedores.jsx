@@ -26,9 +26,24 @@ const ABMProveedores = () => {
         "fechaAlta",
         "fechaBaja",
         "fechaModificacion",
-        "demoraProveedorArticulos"
+        "demoraProveedorArticulos" 
     ]
-
+    const extraABM = {
+      entityName:"demoraProveedorArticulo",
+      columns:[
+        "tiempoDemora",
+        "articulo"
+      ],
+      relatedObjects:[
+        { apiName: "articulo", fieldName: "articulo" }
+      ],
+      createExcludedFields:[
+        "id",
+        "fechaAlta",
+        "fechaBaja",
+      ],
+      fatherApiName: "proveedor"
+    }
     
   return (
     <div>
@@ -38,8 +53,9 @@ const ABMProveedores = () => {
           columns={columns} 
           nonEditableFields={nonEditableFields}
           createExcludedFields={createExcludedFields}
+          extraABM={extraABM}
         />
-      </div>
+    </div>
   )
 }
 

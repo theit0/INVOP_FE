@@ -53,9 +53,9 @@ const ABMArticulos = () => {
       "modeloInventario",
       "valorLoteOptimo",
       "valorPuntoPedido",
-      "proveedorPredeterminado",
       "stockSeguridad"
     ]
+
 
     /* Recibimos los objetos del ABM para agregarle los atributos del DTO */
     const extraDataFetch = async (objects) => {
@@ -121,7 +121,6 @@ const ABMArticulos = () => {
           extraDataFetch={extraDataFetch}
           createExcludedFields={createExcludedFields}
           renderActions={renderArticuloActions}
-          
         />
         {isCalcularModalOpen && (
             <CalcularCantidadModal

@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import "../components/modal/Modal.css"
+const CreateModalGeneric = ({ onClose, onCreate, relatedData, columns, createExcludedFields,fatherEntity }) => {
+    
+    
 
-const CreateModalGeneric = ({ onClose, onCreate, relatedData, columns, createExcludedFields }) => {
     const [formValues, setFormValues] = useState(
         columns.reduce((acc, column) => ({ ...acc, [column]: '' }), {})
     );
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -58,6 +61,7 @@ const CreateModalGeneric = ({ onClose, onCreate, relatedData, columns, createExc
                         <button type="button" onClick={onClose}>Cancelar</button>
                     </div>
                 </form>
+                
             </div>
         </div>
     );

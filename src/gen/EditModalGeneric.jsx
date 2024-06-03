@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import "../components/modal/Modal.css"
-const EditModalGeneric = ({ entity, onClose, onUpdate, nonEditableFields, relatedData }) => {
+import ABMEntity from './ABMEntity';
+import { fetchEntities } from '../services/entityService';
+const EditModalGeneric = ({ entity, onClose, onUpdate, nonEditableFields, relatedData,extraABM }) => {
   
+  
+
   /* Guardamos el valor de los inputs del form, es decir, el objeto en si*/
   const [formValues, setFormValues] = useState({ ...entity });
-
 
   useEffect(() => {
     setFormValues({ ...entity });
@@ -52,6 +55,7 @@ const EditModalGeneric = ({ entity, onClose, onUpdate, nonEditableFields, relate
     return <input type="text" name={field} value={formValues[field]} onChange={handleChange} />;
   };
 
+
   return (
     <div className="modal">
       <div className="modal-content">
@@ -65,12 +69,29 @@ const EditModalGeneric = ({ entity, onClose, onUpdate, nonEditableFields, relate
               </div>
               )
           ))}
+          
           <div className="modal-actions">
             <button type="submit">Confirmar</button>
             <button type="button" onClick={onClose}>Cancelar</button>
           </div>
         </form>
+        {
+          extraABM && 
+          <ABMEntity 
+              entityName={extraABM.entityName} 
+              apiUrl="http://localhost:8080" 
+              columns={extraABM.columns} 
+              relatedObjects={extraABM.relatedObjects}
+              createExcludedFields={extraABM.createExcludedFields}
+              fatherEntity={entity}
+              fatherApiName={extraABM.fatherApiName}
+          />
+        }
+
+            
+      
       </div>
+      
     </div>
   );
 };
