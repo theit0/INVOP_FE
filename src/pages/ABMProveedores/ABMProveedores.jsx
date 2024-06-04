@@ -12,7 +12,7 @@ const ABMProveedores = () => {
         // Cargar proveedores iniciales desde la API si es necesario
     }, []);
 
-    const handleAddDemora = async (proveedor, demoraProveedorArticulo) => {
+    const handleAddDemora = async (proveedor, demoraProveedorArticulo, updateProveedorState) => {
         const updatedProveedor = {
             ...proveedor,
             demoraProveedorArticulos: [...(proveedor.demoraProveedorArticulos || []), demoraProveedorArticulo]
@@ -29,6 +29,7 @@ const ABMProveedores = () => {
             console.error('Error updating provider:', error);
         }
     };
+
 
     const handleRemoveDemora = async (proveedor, demoraIndex) => {
         const updatedProveedor = {
