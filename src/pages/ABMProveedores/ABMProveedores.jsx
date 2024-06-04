@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import ABMEntity from "../../gen/ABMEntity";
-import AddDemoraProveedorArticulo from '../../gen/AddDemoraProveedorArticulo';
-import { updateEntity } from '../../services/entityService'; // Asegúrate de tener la ruta correcta
+import { fetchEntities, updateEntity } from '../../services/entityService'; 
+import AddDemoraProveedorArticulo from "../../gen/AddDemoraProveedorArticulo";
 
 const ABMProveedores = () => {
     const [proveedores, setProveedores] = useState([]);
@@ -9,27 +9,30 @@ const ABMProveedores = () => {
     const entityName = "proveedor";
 
     useEffect(() => {
-        // Cargar proveedores iniciales desde la API si es necesario
+        getProveedores()
     }, []);
 
-    const handleAddDemora = async (proveedor, demoraProveedorArticulo, updateProveedorState) => {
+    const getProveedores = async()=>{
+        const proveedores = await fetchEntities(apiUrl, entityName); 
+        setProveedores(proveedores)
+    }
+
+    const handleAddDemora = async (proveedor, demoraProveedorArticulo) => {
         const updatedProveedor = {
             ...proveedor,
             demoraProveedorArticulos: [...(proveedor.demoraProveedorArticulos || []), demoraProveedorArticulo]
         };
 
         try {
-            await updateEntity(apiUrl, entityName, updatedProveedor);
+            /* await updateEntity(apiUrl, entityName, updatedProveedor); */
             const updatedProveedores = proveedores.map(p =>
                 p.id === proveedor.id ? updatedProveedor : p
             );
             setProveedores(updatedProveedores);
-            updateProveedorState(updatedProveedor);
         } catch (error) {
             console.error('Error updating provider:', error);
         }
     };
-
 
     const handleRemoveDemora = async (proveedor, demoraIndex) => {
         const updatedProveedor = {
@@ -38,14 +41,13 @@ const ABMProveedores = () => {
         };
 
         try {
-            await updateEntity(apiUrl, entityName, updatedProveedor);
             const updatedProveedores = proveedores.map(p =>
                 p.id === proveedor.id ? updatedProveedor : p
             );
             setProveedores(updatedProveedores);
         } catch (error) {
             console.error('Error updating provider:', error);
-        } 
+        }
     };
 
     const columns = [

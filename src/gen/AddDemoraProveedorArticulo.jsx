@@ -18,16 +18,16 @@ const AddDemoraProveedorArticulo = ({ onClose, onSave, articles }) => {
             <div className="modal-content">
                 <h2>Agregar Demora Proveedor Artículo</h2>
                 <div>
-                    <label className="modal-label">Artículo:</label>
+                    <label>Artículo</label>
                     <select value={selectedArticle} onChange={(e) => setSelectedArticle(e.target.value)}>
-                        <option value="">Seleccione un artículo</option>
+                        <option value="" disabled>Seleccione un artículo</option>
                         {articles.map(article => (
                             <option key={article.id} value={article.id}>{article.nombre}</option>
                         ))}
                     </select>
                 </div>
                 <div>
-                    <label className="modal-label">Demora:</label>
+                    <label>Demora (días)</label>
                     <input 
                         type="number" 
                         value={delay} 
@@ -35,8 +35,8 @@ const AddDemoraProveedorArticulo = ({ onClose, onSave, articles }) => {
                     />
                 </div>
                 <div className="modal-actions">
-                    <button onClick={handleSave} className="add-demora-button">Guardar</button>
-                    <button onClick={onClose}>Cancelar</button>
+                    <button type="button" onClick={handleSave}>Guardar</button>
+                    <button type="button" onClick={onClose}>Cancelar</button>
                 </div>
             </div>
         </div>

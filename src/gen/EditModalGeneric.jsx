@@ -29,12 +29,20 @@ const EditModalGeneric = ({
     };
 
     const handleAddSubEntity = async (subEntity) => {
-        await subEntityHandlers.addSubEntity(entity, subEntity, setFormValues);
+        await subEntityHandlers.addSubEntity(formValues, subEntity);
+        setFormValues(prevFormValues => ({
+            ...prevFormValues,
+            demoraProveedorArticulos: [...prevFormValues.demoraProveedorArticulos, subEntity]
+        }));
         setIsAddSubEntityModalOpen(false);
     };
 
     const handleRemoveSubEntity = async (index) => {
-        await subEntityHandlers.removeSubEntity(entity, index, setFormValues);
+        await subEntityHandlers.removeSubEntity(formValues, index);
+        setFormValues(prevFormValues => ({
+            ...prevFormValues,
+            demoraProveedorArticulos: prevFormValues.demoraProveedorArticulos.filter((_, i) => i !== index)
+        }));
     };
 
     const handleSubmit = (e) => {
@@ -96,7 +104,6 @@ const EditModalGeneric = ({
                                                 <td>{subEntity.tiempoDemora}</td>
                                                 <td>
                                                     <button type="button" onClick={() => handleRemoveSubEntity(index)} className="btn-accion">Eliminar</button>
-                                                    {/* Aquí podrías agregar el botón de editar y su lógica */}
                                                 </td>
                                             </tr>
                                         ))}
