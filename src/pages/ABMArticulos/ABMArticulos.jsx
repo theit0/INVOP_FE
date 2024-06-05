@@ -53,6 +53,7 @@ const ABMArticulos = () => {
       "modeloInventario",
       "valorLoteOptimo",
       "valorPuntoPedido",
+      "proveedorPredeterminado",
       "stockSeguridad"
     ]
 
@@ -77,7 +78,7 @@ const ABMArticulos = () => {
 
     const handleCalcularCantidadVendida = async (id, fechaDesde, fechaHasta) => {
       try {
-        const response = await fetch(`${apiUrl}/articulo/demandaHistorica/${id}?fechaDesde=${fechaDesde.value}&fechaHasta=${fechaHasta.value}`);
+        const response = await fetch(`${apiUrl}/venta/demandaHistorica/${id}?fechaDesde=${fechaDesde.value}&fechaHasta=${fechaHasta.value}`);
         const data = await response.json();
         Swal.fire({
           title: `CV: ${data} artículos`,
@@ -120,6 +121,7 @@ const ABMArticulos = () => {
           extraDataFetch={extraDataFetch}
           createExcludedFields={createExcludedFields}
           renderActions={renderArticuloActions}
+          
         />
         {isCalcularModalOpen && (
             <CalcularCantidadModal
