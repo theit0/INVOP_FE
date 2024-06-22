@@ -53,7 +53,6 @@ const ABMArticulos = () => {
       "modeloInventario",
       "valorLoteOptimo",
       "valorPuntoPedido",
-      "proveedorPredeterminado",
       "stockSeguridad"
     ]
 
