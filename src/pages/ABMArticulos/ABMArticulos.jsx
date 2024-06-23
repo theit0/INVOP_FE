@@ -101,6 +101,7 @@ const ABMArticulos = () => {
         console.error(error.message);
       }
     };
+    
 
     const renderArticuloActions = (entity) => (
       <CalculateButton onClick={() => {
