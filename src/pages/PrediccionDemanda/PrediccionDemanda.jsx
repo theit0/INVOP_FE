@@ -27,7 +27,7 @@ const PrediccionDemanda = () => {
         setArticulos(articulos);
     };
 
-    
+
 
     const onPredecir = async (id, cantPeriodos) => {
         try {

@@ -5,6 +5,7 @@ const ABMArticuloDatoModeloArticulo = () => {
     const entityName2 = "articuloDatoModeloArticulo"
     const apiUrl = "http://localhost:8080"
     const columns2 = [
+        "id",
         "valorDato",
         "articulo",
         "datoModeloArticulo"

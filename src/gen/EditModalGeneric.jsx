@@ -14,6 +14,8 @@ const EditModalGeneric = ({
     const [formValues, setFormValues] = useState({ ...entity });
     const [isAddSubEntityModalOpen, setIsAddSubEntityModalOpen] = useState(false);
 
+    console.log(subEntityHandlers)
+
     useEffect(() => {
         setFormValues({ ...entity });
     }, [entity]);
