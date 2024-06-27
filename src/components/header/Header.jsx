@@ -14,6 +14,7 @@ const Header = () => {
         <Link to="/abm-ordencompra">ABM Orden compra</Link>
         <Link to="/abm-parametros">ABM Parametros</Link>
         <Link to="/prediccion-demanda">Predecir demanda</Link>
+        <Link to="/listar-articulos">Listar articulos</Link>
       </nav>
     </header>
   );

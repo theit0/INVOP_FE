@@ -11,6 +11,7 @@ import PrediccionDemanda from "./pages/PrediccionDemanda/PrediccionDemanda";
 import ABMArticuloDatoModeloArticulo from "./pages/ABMArticuloDatoModeloArticulo/ABMArticuloDatoModeloArticulo";
 import ABMFamiliaArticulos from "./pages/ABMFamiliaArticulos/ABMFamiliaArticulos";
 import ABMVentas from "./pages/ABMVentas/ABMVentas";
+import ListarArticulosPage from "./pages/ListarArticulos/ListarArticulosPage";
 function App() {
   return (
     <>
@@ -26,6 +27,7 @@ function App() {
           <Route path="/abm-parametros" element={<ABMParametros/>}/>
           <Route path="/abm-ventas" element={<ABMVentas/>}/>
           <Route path="/prediccion-demanda" element={<PrediccionDemanda/>}/>
+          <Route path="/listar-articulos" element={<ListarArticulosPage/>}/>
         </Routes>
       </Router>
     </>
