@@ -88,7 +88,15 @@ const ABMProveedores = () => {
                 subEntityHandlers={{
                     addSubEntity: handleAddDemora,
                     removeSubEntity: handleRemoveDemora,
-                    subEntityComponent: AddDemoraProveedorArticulo,
+                    subEntityComponent: {
+                        component: AddDemoraProveedorArticulo,
+                        subEntityApiName: "articulo",
+                        fields: {
+                            articulo: "Id artículo",
+                            nombre: "Nombre",
+                            tiempoDemora: "Demora"
+                        }
+                    },
                     subEntityField: "demoraProveedorArticulos"
                 }} 
                 nonEditableFields={nonEditableFields}

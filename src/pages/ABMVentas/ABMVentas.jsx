@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ABMEntity from '../../gen/ABMEntity';
 import AddDetalleVenta from "../../gen/AddDetalleVenta";
+import { fetchEntities } from '../../services/entityService';
 const ABMVentas = () => {
     const [ventas, setVentas] = useState([]);
     const apiUrl = "http://localhost:8080";
@@ -85,7 +86,15 @@ const ABMVentas = () => {
                 subEntityHandlers={{
                     addSubEntity: handleAddArticulo,
                     removeSubEntity: handleRemoveDetalle,
-                    subEntityComponent: AddDetalleVenta,
+                    subEntityComponent: {
+                        component: AddDetalleVenta,
+                        subEntityApiName: "articulo",
+                        fields: {
+                            articulo: "id",
+                            subtotal: "subtotal",
+                            cantidad: "cantidad"
+                        }
+                    },
                     subEntityField: "detalleVentas"
                 }} 
                 nonEditableFields={nonEditableFields}

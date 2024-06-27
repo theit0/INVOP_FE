@@ -1,15 +1,26 @@
-import React, { useState } from 'react';
-import "../components/modal/Modal.css";  
-const AddDetalleVenta = () => {
+import { useEffect, useState } from "react";
+import { fetchEntities } from "../services/entityService";
+
+const AddDetalleVenta = ({ onClose, onSave, subEntityApiName }) => {
     const [selectedArticle, setSelectedArticle] = useState("");
-    const [delay, setDelay] = useState("");
+    const [quantity, setQuantity] = useState("");
+    const [articles,setArticles] = useState([])
+
+    useEffect(()=>{
+        getArticles()
+    },[])
+
+    const getArticles = async () => {
+        const articles = await fetchEntities("http://localhost:8080", subEntityApiName); 
+        setArticles(articles)
+    }
 
     const handleSave = () => {
-        const demoraProveedorArticulo = {
+        const detalleVenta = {
             articulo: articles.find(article => article.id === parseInt(selectedArticle)),
-            tiempoDemora: delay
+            cantidad: quantity
         };
-        onSave(demoraProveedorArticulo);
+        onSave(detalleVenta);
     };
 
     return (
@@ -29,8 +40,8 @@ const AddDetalleVenta = () => {
                     <label>Cantidad</label>
                     <input 
                         type="number" 
-                        value={delay} 
-                        onChange={(e) => setDelay(e.target.value)} 
+                        value={quantity} 
+                        onChange={(e) => setQuantity(e.target.value)} 
                     />
                 </div>
                 <div className="modal-actions">
@@ -42,4 +53,4 @@ const AddDetalleVenta = () => {
     );
 }
 
-export default AddDetalleVenta
+export default AddDetalleVenta;

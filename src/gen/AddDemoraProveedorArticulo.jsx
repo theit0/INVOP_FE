@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "../components/modal/Modal.css";  // Asegúrate de importar el archivo CSS aquí
+import { fetchEntities } from '../services/entityService';
 
-const AddDemoraProveedorArticulo = ({ onClose, onSave, articles }) => {
+const AddDemoraProveedorArticulo = ({ onClose, onSave, subEntityApiName }) => {
     const [selectedArticle, setSelectedArticle] = useState("");
     const [delay, setDelay] = useState("");
-
+    const [articles,setArticles] = useState([])
     const handleSave = () => {
         const demoraProveedorArticulo = {
             articulo: articles.find(article => article.id === parseInt(selectedArticle)),
@@ -12,6 +13,15 @@ const AddDemoraProveedorArticulo = ({ onClose, onSave, articles }) => {
         };
         onSave(demoraProveedorArticulo);
     };
+
+    useEffect(()=>{
+        getArticles()
+    },[])
+
+    const getArticles = async () => {
+        const articles = await fetchEntities("http://localhost:8080", subEntityApiName); 
+        setArticles(articles)
+    }
 
     return (
         <div className="modal">

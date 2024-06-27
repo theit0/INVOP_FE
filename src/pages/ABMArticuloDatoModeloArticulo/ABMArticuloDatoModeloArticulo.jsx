@@ -15,7 +15,6 @@ const ABMArticuloDatoModeloArticulo = () => {
         "fechaAlta",
         "fechaBaja",
         "fechaModificacion",
-        "datoModeloArticulo",
         "articulo"
     ]
     const createExcludedFields2 = [
@@ -23,7 +22,6 @@ const ABMArticuloDatoModeloArticulo = () => {
         "fechaAlta",
         "fechaBaja",
         "fechaModificacion",
-        "datoModeloArticulo",
     ]
 
     const relatedObjects2 = [

@@ -17,8 +17,6 @@ const ABMArticulos = () => {
       "nombre",
       "stockActual",
       "fechaAlta",
-      "fechaBaja",
-      "fechaModificacion",
       "cgi",
       "descripcion",
       "modeloInventario",

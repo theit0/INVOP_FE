@@ -6,8 +6,6 @@ const ABMFamiliaArticulos = () => {
     const columns = [
         "id",
         "fechaAlta",
-        "fechaBaja",
-        "fechaModificacion",
         "nombre",
     ]
     const nonEditableField = [

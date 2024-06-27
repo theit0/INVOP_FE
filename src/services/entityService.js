@@ -25,6 +25,9 @@ export const fetchRelatedData = async (apiUrl, relatedObjects = []) => {
 };
 
 export const updateEntity = async (apiUrl, entityName, updatedEntity) => {
+    console.log(apiUrl)
+    console.log(entityName)
+    console.log(updatedEntity)
     const response = await fetch(`${apiUrl}/${entityName}/${updatedEntity.id}`, {
         method: 'PUT',
         headers: {
@@ -32,6 +35,7 @@ export const updateEntity = async (apiUrl, entityName, updatedEntity) => {
         },
         body: JSON.stringify(updatedEntity),
     });
+    console.log(response)
 
 
     if (!response.ok) {
