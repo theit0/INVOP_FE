@@ -51,9 +51,8 @@ const ABMVentas = () => {
 
     const columns = [
         "id",
-        "fechaAlta",
-        "fechaVenta",
         "montoTotal",
+        "fechaVenta",
         "detalleVentas",
     ];
     const nonEditableFields = [
@@ -69,7 +68,7 @@ const ABMVentas = () => {
         "fechaAlta",
         "fechaBaja",
         "fechaModificacion",
-        "fechaVenta",
+        "montoTotal",
         "detalleVentas",
     ];
     const relatedObjects = [
@@ -93,7 +92,8 @@ const ABMVentas = () => {
                             articulo: "id",
                             subtotal: "subtotal",
                             cantidad: "cantidad"
-                        }
+                        },
+                        hasEditableDetails:false
                     },
                     subEntityField: "detalleVentas"
                 }} 

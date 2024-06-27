@@ -226,6 +226,7 @@ const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, subEntityHa
                     relatedData={relatedData}
                     columns={columns}
                     createExcludedFields={createExcludedFields}
+                    subEntityHandlers={subEntityHandlers}
                 />
             )}
 

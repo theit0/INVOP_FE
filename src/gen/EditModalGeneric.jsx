@@ -98,7 +98,7 @@ const EditModalGeneric = ({
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {formValues[subEntityHandlers.subEntityField]?.map((subEntity, index) => (
+                                    { formValues[subEntityHandlers.subEntityField]?.map((subEntity, index) => (
                                         <tr key={index}>
                                         {Object.keys(subEntityHandlers.subEntityComponent.fields).map((field, subIndex) => (
                                             <td key={subIndex}>{typeof subEntity[field] === 'object' ? subEntity[field].nombre : subEntity[field]}</td>

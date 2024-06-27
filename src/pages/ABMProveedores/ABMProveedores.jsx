@@ -94,8 +94,11 @@ const ABMProveedores = () => {
                         fields: {
                             articulo: "Id artículo",
                             nombre: "Nombre",
+                            costoPedido:"Costo pedido",
+                            precioArt: "Precio Articulo",
                             tiempoDemora: "Demora"
-                        }
+                        },
+                        hasEditableDetails:true
                     },
                     subEntityField: "demoraProveedorArticulos"
                 }} 

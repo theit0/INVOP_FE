@@ -15,6 +15,7 @@ const ABMArticulos = () => {
     const columns = [
       "id",
       "nombre",
+      "precioVenta",
       "stockActual",
       "fechaAlta",
       "cgi",

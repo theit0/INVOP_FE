@@ -5,11 +5,15 @@ import { fetchEntities } from '../services/entityService';
 const AddDemoraProveedorArticulo = ({ onClose, onSave, subEntityApiName }) => {
     const [selectedArticle, setSelectedArticle] = useState("");
     const [delay, setDelay] = useState("");
+    const [costoPedido, setCostoPedido] = useState("");
+    const [precioArt, setPrecioArt] = useState("");
     const [articles,setArticles] = useState([])
     const handleSave = () => {
         const demoraProveedorArticulo = {
             articulo: articles.find(article => article.id === parseInt(selectedArticle)),
-            tiempoDemora: delay
+            tiempoDemora: delay,
+            costoPedido:costoPedido,
+            precioArt:precioArt
         };
         onSave(demoraProveedorArticulo);
     };
@@ -42,6 +46,22 @@ const AddDemoraProveedorArticulo = ({ onClose, onSave, subEntityApiName }) => {
                         type="number" 
                         value={delay} 
                         onChange={(e) => setDelay(e.target.value)} 
+                    />
+                </div>
+                <div>
+                    <label>Costo pedido</label>
+                    <input 
+                        type="number" 
+                        value={costoPedido} 
+                        onChange={(e) => setCostoPedido(e.target.value)} 
+                    />
+                </div>
+                <div>
+                    <label>Precio articulo</label>
+                    <input 
+                        type="number" 
+                        value={precioArt} 
+                        onChange={(e) => setPrecioArt(e.target.value)} 
                     />
                 </div>
                 <div className="modal-actions">
