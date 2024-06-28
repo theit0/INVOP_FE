@@ -5,7 +5,6 @@ const ABMFamiliaArticulos = () => {
     const apiUrl = "http://localhost:8080"
     const columns = [
         "id",
-        "fechaAlta",
         "nombre",
     ]
     const nonEditableField = [

@@ -19,12 +19,10 @@ const ABMArticulos = () => {
       "nombre",
       "precioVenta",
       "stockActual",
-      "fechaAlta",
       "cgi",
       "descripcion",
       "modeloInventario",
       "familiaArticulo",
-      "proveedorPredeterminado",
       "valorLoteOptimo",
       "valorPuntoPedido",
       "stockSeguridad"
@@ -67,6 +65,8 @@ const ABMArticulos = () => {
       /* Esperamos la data */
       const dtoDataArray = await Promise.all(dtoDataPromises);
 
+      console.log(dtoDataArray)
+
       /* Les agregamos los nuevos valores buscados a los objetos y retornamos todo en uno solo*/
       return objects.map((obj, index) => ({
         ...obj,
@@ -84,8 +84,8 @@ const ABMArticulos = () => {
                 'Content-Type': 'application/json',
             }
         });
-        console.log(response)
         const data = await response.json();
+        console.log(data)
         Swal.fire({
           title: `CGI: ${data}`,
           background: "black",

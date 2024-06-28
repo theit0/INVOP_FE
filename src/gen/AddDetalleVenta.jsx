@@ -12,6 +12,7 @@ const AddDetalleVenta = ({ onClose, onSave, subEntityApiName }) => {
 
     const getArticles = async () => {
         const articles = await fetchEntities("http://localhost:8080", subEntityApiName); 
+        console.log(articles)
         setArticles(articles)
     }
 

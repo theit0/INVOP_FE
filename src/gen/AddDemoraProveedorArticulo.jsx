@@ -3,14 +3,18 @@ import "../components/modal/Modal.css";  // Asegúrate de importar el archivo CS
 import { fetchEntities } from '../services/entityService';
 
 const AddDemoraProveedorArticulo = ({ onClose, onSave, subEntityApiName }) => {
-    const [selectedArticle, setSelectedArticle] = useState("");
+    const [selectedArticle, setSelectedArticle] = useState({});
+    console.log(selectedArticle)
     const [delay, setDelay] = useState("");
     const [costoPedido, setCostoPedido] = useState("");
     const [precioArt, setPrecioArt] = useState("");
     const [articles,setArticles] = useState([])
     const handleSave = () => {
+
+
         const demoraProveedorArticulo = {
-            articulo: articles.find(article => article.id === parseInt(selectedArticle)),
+            id: articles.find(article => article.id === parseInt(selectedArticle)).id,
+            nombre:articles.find(article => article.id === parseInt(selectedArticle)).nombre,
             tiempoDemora: delay,
             costoPedido:costoPedido,
             precioArt:precioArt

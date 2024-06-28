@@ -52,12 +52,8 @@ const ABMProveedores = () => {
 
     const columns = [
         "id",
-        "fechaAlta",
-        "fechaBaja",
-        "fechaModificacion",
         "nombre",
         "direccion",
-        "telefono",
         "email"
     ];
     const nonEditableFields = [
@@ -92,8 +88,8 @@ const ABMProveedores = () => {
                         component: AddDemoraProveedorArticulo,
                         subEntityApiName: "articulo",
                         fields: {
-                            articulo: "Id artículo",
-                            nombre: "Nombre",
+                            id: "id",
+                            nombre: "nombre",
                             costoPedido:"Costo pedido",
                             precioArt: "Precio Articulo",
                             tiempoDemora: "Demora"

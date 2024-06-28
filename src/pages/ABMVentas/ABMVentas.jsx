@@ -53,7 +53,6 @@ const ABMVentas = () => {
         "id",
         "montoTotal",
         "fechaVenta",
-        "detalleVentas",
     ];
     const nonEditableFields = [
         "id",
