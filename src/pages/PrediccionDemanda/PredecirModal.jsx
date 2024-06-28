@@ -4,6 +4,7 @@ const PredecirModal = ({ isOpen, onClose, onPredecir, articulo }) => {
     
     const [cantPeriodos, setCantPeriodos] = useState(0);
 
+
     const handlePredecirClick = () => {
         onPredecir(articulo.id, cantPeriodos);
     };
