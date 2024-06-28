@@ -39,9 +39,12 @@ const PrediccionDemanda = () => {
           });
           const data = await response.json();
 
+          
           console.log(data)
           Swal.fire({
-            title: `CV: ${111} ventas`,
+            title: `CV: ${111} ventas
+            Hola como estas
+            `,
             background: "black",
             color: "white",
             padding: "1rem 2rem",
