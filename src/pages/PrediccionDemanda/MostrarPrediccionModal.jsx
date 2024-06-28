@@ -8,7 +8,7 @@ const MostrarPrediccionModal = ({ isOpen, onClose, prediccionData }) => {
   return (
     <div className={`modal ${isOpen ? 'is-open' : ''}`}>
       <div className="modal-content">
-        <h2>Método de Predicción: {metodoPrediccion.nombre}</h2>
+        <h3>Método de Predicción: {metodoPrediccion.nombre}</h3>
         <table className='entity-table'>
           <thead>
             <tr>

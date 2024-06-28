@@ -78,12 +78,11 @@ const ABMArticulos = () => {
 
     const calculateCGI = async(entity) => {
       try {
-        const response = await fetch(`${apiUrl}/${entityName}/cgi/${id}`, {
+        const response = await fetch(`${apiUrl}/${entityName}/cgi/${entity.id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(updatedEntity),
+            }
         });
         console.log(response)
         const data = await response.json();
