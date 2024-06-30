@@ -3,33 +3,37 @@ import "../components/modal/Modal.css";  // Asegúrate de importar el archivo CS
 import { fetchEntities } from '../services/entityService';
 
 const AddDemoraProveedorArticulo = ({ onClose, onSave, subEntityApiName }) => {
-    const [selectedArticle, setSelectedArticle] = useState({});
-    console.log(selectedArticle)
+    const [selectedArticle, setSelectedArticle] = useState("");
     const [delay, setDelay] = useState("");
     const [costoPedido, setCostoPedido] = useState("");
     const [precioArt, setPrecioArt] = useState("");
-    const [articles,setArticles] = useState([])
-    const handleSave = () => {
+    const [articles, setArticles] = useState([]);
 
-
-        const demoraProveedorArticulo = {
-            id: articles.find(article => article.id === parseInt(selectedArticle)).id,
-            nombre:articles.find(article => article.id === parseInt(selectedArticle)).nombre,
-            tiempoDemora: delay,
-            costoPedido:costoPedido,
-            precioArt:precioArt
-        };
-        onSave(demoraProveedorArticulo);
-    };
-
-    useEffect(()=>{
-        getArticles()
-    },[])
+    useEffect(() => {
+        getArticles();
+    }, []);
 
     const getArticles = async () => {
         const articles = await fetchEntities("http://localhost:8080", subEntityApiName); 
-        setArticles(articles)
-    }
+        setArticles(articles);
+    };
+
+    const handleSave = () => {
+        const article = articles.find(article => article.id === parseInt(selectedArticle));
+        if (!article) {
+            console.error("Artículo no encontrado");
+            return;
+        }
+
+        const demoraProveedorArticulo = {
+            articulo: article,  // Asigna el artículo completo aquí
+            tiempoDemora: delay,
+            costoPedido: costoPedido,
+            precioArt: precioArt
+        };
+        onSave(demoraProveedorArticulo);
+        onClose(); // Cierra el modal después de guardar
+    };
 
     return (
         <div className="modal">
@@ -61,7 +65,7 @@ const AddDemoraProveedorArticulo = ({ onClose, onSave, subEntityApiName }) => {
                     />
                 </div>
                 <div>
-                    <label>Precio articulo</label>
+                    <label>Precio artículo</label>
                     <input 
                         type="number" 
                         value={precioArt} 
