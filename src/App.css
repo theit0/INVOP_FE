@@ -15,3 +15,7 @@ h1,h2,p,input,h4 {
     margin: 0 !important;
 }
 
+.content {
+    margin-left: 200px;
+}
+  

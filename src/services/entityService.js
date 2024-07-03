@@ -3,7 +3,6 @@
 export const fetchEntities = async (apiUrl, entityName, extraDataFetch) => {
     const response = await fetch(`${apiUrl}/${entityName}`);
     const data = await response.json();
-
     if (extraDataFetch) {
         return await extraDataFetch(data);
     } else {
@@ -25,25 +24,28 @@ export const fetchRelatedData = async (apiUrl, relatedObjects = []) => {
 };
 
 export const updateEntity = async (apiUrl, entityName, updatedEntity) => {
-    console.log(apiUrl)
-    console.log(entityName)
+
     console.log(updatedEntity)
-    const response = await fetch(`${apiUrl}/${entityName}/${updatedEntity.id}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updatedEntity),
-    });
-    console.log(response)
 
-
-    if (!response.ok) {
-        throw new Error('Error updating entity');
-    }
+        const response = await fetch(`${apiUrl}/${entityName}/${updatedEntity.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedEntity),
+        });
+        console.log(response)
+    
+    
+        if (!response.ok) {
+            throw new Error('Error updating entity');
+        }
+    
+    
 };
 
 export const createEntity = async (apiUrl, entityName, newEntity) => {
+    console.log(newEntity)
     const response = await fetch(`${apiUrl}/${entityName}`, {
         method: 'POST',
         headers: {
@@ -51,7 +53,7 @@ export const createEntity = async (apiUrl, entityName, newEntity) => {
         },
         body: JSON.stringify(newEntity),
     });
-
+    console.log(response)
     if (!response.ok) {
         throw new Error('Error creating entity');
     }

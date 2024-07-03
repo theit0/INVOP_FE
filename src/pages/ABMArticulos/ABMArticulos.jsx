@@ -22,6 +22,7 @@ const ABMArticulos = () => {
       "cgi",
       "descripcion",
       "modeloInventario",
+      "proveedorPredeterminado",
       "familiaArticulo",
       "valorLoteOptimo",
       "valorPuntoPedido",
@@ -41,7 +42,11 @@ const ABMArticulos = () => {
       "fechaBaja",
       "valorLoteOptimo",
       "valorPuntoPedido",
-      "stockSeguridad"
+      "proveedorPredeterminadoId",
+      "modeloInventarioId",
+      "familiaArticuloId",
+      "stockSeguridad",
+      "tpoEntreControlesStock"
     ];
 
     const createExcludedFields = [
@@ -49,9 +54,14 @@ const ABMArticulos = () => {
       "fechaAlta",
       "fechaBaja",
       "fechaModificacion",
+      "proveedorPredeterminado",
       "modeloInventario",
+      "proveedorPredeterminadoId",
+      "modeloInventarioId",
+      "familiaArticuloId",
       "valorLoteOptimo",
       "valorPuntoPedido",
+      "tpoEntreControlesStock",
       "stockSeguridad"
     ]
 
@@ -65,7 +75,6 @@ const ABMArticulos = () => {
       /* Esperamos la data */
       const dtoDataArray = await Promise.all(dtoDataPromises);
 
-      console.log(dtoDataArray)
 
       /* Les agregamos los nuevos valores buscados a los objetos y retornamos todo en uno solo*/
       return objects.map((obj, index) => ({
@@ -85,7 +94,6 @@ const ABMArticulos = () => {
             }
         });
         const data = await response.json();
-        console.log(data)
         Swal.fire({
           title: `CGI: ${data}`,
           background: "black",

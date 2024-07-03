@@ -12,23 +12,26 @@ import ABMArticuloDatoModeloArticulo from "./pages/ABMArticuloDatoModeloArticulo
 import ABMFamiliaArticulos from "./pages/ABMFamiliaArticulos/ABMFamiliaArticulos";
 import ABMVentas from "./pages/ABMVentas/ABMVentas";
 import ListarArticulosPage from "./pages/ListarArticulos/ListarArticulosPage";
+import SideNav from "./components/sidenav/SideNav";
 function App() {
   return (
     <>
       <Router>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/abm-articulos" element={<ABMArticulos />} />
-          <Route path="/abm-artdatomodeloart" element={<ABMArticuloDatoModeloArticulo />} />
-          <Route path="/abm-familia-articulo" element={<ABMFamiliaArticulos />} />
-          <Route path="/abm-proveedores" element={<ABMProveedores />} />
-          <Route path="/abm-ordencompra" element={<ABMOrdenCompra />} />
-          <Route path="/abm-parametros" element={<ABMParametros/>}/>
-          <Route path="/abm-ventas" element={<ABMVentas/>}/>
-          <Route path="/prediccion-demanda" element={<PrediccionDemanda/>}/>
-          <Route path="/listar-articulos" element={<ListarArticulosPage/>}/>
-        </Routes>
+        <SideNav />
+        <div className="content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/abm-articulos" element={<ABMArticulos />} />
+            <Route path="/abm-artdatomodeloart" element={<ABMArticuloDatoModeloArticulo />} />
+            <Route path="/abm-familia-articulo" element={<ABMFamiliaArticulos />} />
+            <Route path="/abm-proveedores" element={<ABMProveedores />} />
+            <Route path="/abm-ordencompra" element={<ABMOrdenCompra />} />
+            <Route path="/abm-parametros" element={<ABMParametros/>}/>
+            <Route path="/abm-ventas" element={<ABMVentas/>}/>
+            <Route path="/prediccion-demanda" element={<PrediccionDemanda/>}/>
+            <Route path="/listar-articulos" element={<ListarArticulosPage/>}/>
+          </Routes>
+        </div>
       </Router>
     </>
   );
