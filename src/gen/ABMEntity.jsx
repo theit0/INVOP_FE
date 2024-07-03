@@ -7,6 +7,7 @@ import CreateModalGeneric from './CreateModalGeneric';
 import DeleteModalGeneric from './DeleteModalGeneric';
 import CreateButton from '../components/create/createButton/CreateButton';
 import "react-toastify/dist/ReactToastify.css";
+import Loader from '../components/loader/Loader';
 
 import {
     fetchEntities,
@@ -41,7 +42,10 @@ const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, subEntityHa
     /* Manejar la visibilidad del modal de delete  */
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [entityToDelete, setEntityToDelete] = useState(null);
+    
+    const [isLoading, setIsLoading] = useState(false); // Estado para controlar el loader
 
+    
     /* Porción de codigo que se va a ejecutar cuando se monte el componente, en este caso fetchEntities */
     useEffect(() => {
         fetchAllData();
@@ -103,6 +107,7 @@ const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, subEntityHa
     /* Creamos un objeto */
     const handleCreateEntity = async (newEntity) => {
         try {
+            setIsLoading(true); // Mostrar loader antes de la petición
             const createdEntity = await createEntity(apiUrl, entityName, newEntity);
             setEntities([...entities, createdEntity]);
             handleCreateModalClose();
@@ -116,10 +121,12 @@ const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, subEntityHa
                 timer:2000,
                 position: "top",
                 showConfirmButton:false
-            })
+            });
         } catch (error) {
             fireErrorWindow();
             console.error(error.message);
+        } finally {
+            setIsLoading(false); // Ocultar loader después de la petición
         }
     };
 
@@ -179,6 +186,7 @@ const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, subEntityHa
 
     return (
         <section className="abm-entity">
+            {isLoading && <Loader />} 
             <div className='abm-title'>
                 <h1>ABM {entityName}</h1>
                 <p>Consultar, modificar, crear y eliminar {entityName}.</p>
