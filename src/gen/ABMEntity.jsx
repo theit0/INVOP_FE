@@ -51,6 +51,7 @@ const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, subEntityHa
             const entities = await fetchEntities(apiUrl, entityName, extraDataFetch);
             setEntities(entities);
             const relatedData = await fetchRelatedData(apiUrl, relatedObjects);
+            console.log(relatedData)
             setRelatedData(relatedData);
 
     };

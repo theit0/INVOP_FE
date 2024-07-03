@@ -88,8 +88,7 @@ const ABMProveedores = () => {
                         component: AddDemoraProveedorArticulo,
                         subEntityApiName: "articulo",
                         fields: {
-                            id: "id",
-                            nombre: "nombre",
+                            articulo:"articulo",
                             costoPedido:"Costo pedido",
                             precioArt: "Precio Articulo",
                             tiempoDemora: "Demora"
