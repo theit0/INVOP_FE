@@ -5,6 +5,7 @@ const ABMArticuloDatoModeloArticulo = () => {
     const entityName2 = "articuloDatoModeloArticulo"
     const apiUrl = "http://localhost:8080"
     const columns2 = [
+        "id",
         "valorDato",
         "articulo",
         "datoModeloArticulo"
@@ -14,7 +15,6 @@ const ABMArticuloDatoModeloArticulo = () => {
         "fechaAlta",
         "fechaBaja",
         "fechaModificacion",
-        "datoModeloArticulo",
         "articulo"
     ]
     const createExcludedFields2 = [
@@ -22,7 +22,6 @@ const ABMArticuloDatoModeloArticulo = () => {
         "fechaAlta",
         "fechaBaja",
         "fechaModificacion",
-        "datoModeloArticulo",
     ]
 
     const relatedObjects2 = [

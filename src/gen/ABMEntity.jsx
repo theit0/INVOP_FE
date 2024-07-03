@@ -21,6 +21,8 @@ import Swal from 'sweetalert2';
 
 const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, subEntityHandlers,relatedObjects, extraDataFetch, createExcludedFields,renderActions,objects  }) => {
 
+    
+
     /* Donde almacenamos todos los objetos de la entidad pasada como parametro */
     const [entities, setEntities] = useState([]||objects);
 
@@ -46,11 +48,12 @@ const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, subEntityHa
     }, [objects]);
 
     const fetchAllData = async () => {
-        const entities = await fetchEntities(apiUrl, entityName, extraDataFetch);
-        setEntities(entities);
-       
-        const relatedData = await fetchRelatedData(apiUrl, relatedObjects);
-        setRelatedData(relatedData);
+            const entities = await fetchEntities(apiUrl, entityName, extraDataFetch);
+            setEntities(entities);
+            const relatedData = await fetchRelatedData(apiUrl, relatedObjects);
+            console.log(relatedData)
+            setRelatedData(relatedData);
+
     };
 
     /* Manejamos el modal de edición */
@@ -226,6 +229,7 @@ const ABMEntity = ({ entityName, apiUrl, columns, nonEditableFields, subEntityHa
                     relatedData={relatedData}
                     columns={columns}
                     createExcludedFields={createExcludedFields}
+                    subEntityHandlers={subEntityHandlers}
                 />
             )}
 

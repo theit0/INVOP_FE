@@ -48,6 +48,7 @@ const ABMOrdenCompra = () => {
     "articulo",
     "montoTotal",
     "estadoOrdenCompra",
+    "fechaLlegada",
   ];
   
 

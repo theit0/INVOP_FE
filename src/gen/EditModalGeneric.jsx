@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import "../components/modal/Modal.css";
-import AddDemoraProveedorArticulo from './AddDemoraProveedorArticulo';
 import { CgAdd } from 'react-icons/cg';
 
 const EditModalGeneric = ({ 
@@ -32,7 +31,7 @@ const EditModalGeneric = ({
         await subEntityHandlers.addSubEntity(formValues, subEntity);
         setFormValues(prevFormValues => ({
             ...prevFormValues,
-            demoraProveedorArticulos: [...prevFormValues.demoraProveedorArticulos, subEntity]
+            [subEntityHandlers.subEntityField]: [...prevFormValues[subEntityHandlers.subEntityField], subEntity]
         }));
         setIsAddSubEntityModalOpen(false);
     };
@@ -41,7 +40,7 @@ const EditModalGeneric = ({
         await subEntityHandlers.removeSubEntity(formValues, index);
         setFormValues(prevFormValues => ({
             ...prevFormValues,
-            demoraProveedorArticulos: prevFormValues.demoraProveedorArticulos.filter((_, i) => i !== index)
+            [subEntityHandlers.subEntityField]: prevFormValues[subEntityHandlers.subEntityField].filter((_, i) => i !== index)
         }));
     };
 
@@ -68,6 +67,8 @@ const EditModalGeneric = ({
         return <input type="text" name={field} value={formValues[field]} onChange={handleChange} />;
     };
 
+
+    
     return (
         <div className="modal">
             <div className="modal-content">
@@ -89,24 +90,24 @@ const EditModalGeneric = ({
                             <div>
                                 <table className="entity-table">
                                     <thead>
-                                        <tr>
-                                            <th>Id artículo</th>
-                                            <th>Nombre</th>
-                                            <th>Demora</th>
-                                            <th>Acciones</th>
-                                        </tr>
+                                    <tr>
+                                        {Object.keys(subEntityHandlers.subEntityComponent.fields).map((field, index) => (
+                                        <th key={index}>{subEntityHandlers.subEntityComponent.fields[field]}</th>
+                                        ))}
+                                        <th>Acciones</th>
+                                    </tr>
                                     </thead>
                                     <tbody>
-                                        {formValues[subEntityHandlers.subEntityField]?.map((subEntity, index) => (
-                                            <tr key={index}>
-                                                <td>{subEntity.articulo.id}</td>
-                                                <td>{subEntity.articulo.nombre}</td>
-                                                <td>{subEntity.tiempoDemora}</td>
-                                                <td>
-                                                    <button type="button" onClick={() => handleRemoveSubEntity(index)} className="btn-accion">Eliminar</button>
-                                                </td>
-                                            </tr>
+                                    { formValues[subEntityHandlers.subEntityField]?.map((subEntity, index) => (
+                                        <tr key={index}>
+                                        {Object.keys(subEntityHandlers.subEntityComponent.fields).map((field, subIndex) => (
+                                            <td key={subIndex}>{typeof subEntity[field] === 'object' ? subEntity[field].nombre : subEntity[field]}</td>
                                         ))}
+                                        <td>
+                                            <button type="button" onClick={() => handleRemoveSubEntity(index)} className="btn-accion">Eliminar</button>
+                                        </td>
+                                        </tr>
+                                    ))}
                                     </tbody>
                                 </table>
                             </div>
@@ -119,10 +120,10 @@ const EditModalGeneric = ({
                 </form>
             </div>
             {isAddSubEntityModalOpen && subEntityHandlers && (
-                <AddDemoraProveedorArticulo 
+                <subEntityHandlers.subEntityComponent.component
                     onClose={() => setIsAddSubEntityModalOpen(false)} 
                     onSave={handleAddSubEntity}
-                    articles={relatedObjects.articulo}
+                    subEntityApiName={subEntityHandlers.subEntityComponent.subEntityApiName}
                 />
             )}
         </div>

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import CalculateButton from "../../components/calculate/CalculateButton";
+import CalculateCGIButton from "../../components/calculate/CalculateCGIButton";
+
 import ABMEntity from "../../gen/ABMEntity";
 import "./ABMArticulos.css"
 import Swal from "sweetalert2";
@@ -15,15 +17,13 @@ const ABMArticulos = () => {
     const columns = [
       "id",
       "nombre",
+      "precioVenta",
       "stockActual",
-      "fechaAlta",
-      "fechaBaja",
-      "fechaModificacion",
       "cgi",
       "descripcion",
       "modeloInventario",
-      "familiaArticulo",
       "proveedorPredeterminado",
+      "familiaArticulo",
       "valorLoteOptimo",
       "valorPuntoPedido",
       "stockSeguridad"
@@ -42,7 +42,11 @@ const ABMArticulos = () => {
       "fechaBaja",
       "valorLoteOptimo",
       "valorPuntoPedido",
-      "stockSeguridad"
+      "proveedorPredeterminadoId",
+      "modeloInventarioId",
+      "familiaArticuloId",
+      "stockSeguridad",
+      "tpoEntreControlesStock"
     ];
 
     const createExcludedFields = [
@@ -50,9 +54,14 @@ const ABMArticulos = () => {
       "fechaAlta",
       "fechaBaja",
       "fechaModificacion",
+      "proveedorPredeterminado",
       "modeloInventario",
+      "proveedorPredeterminadoId",
+      "modeloInventarioId",
+      "familiaArticuloId",
       "valorLoteOptimo",
       "valorPuntoPedido",
+      "tpoEntreControlesStock",
       "stockSeguridad"
     ]
 
@@ -66,6 +75,7 @@ const ABMArticulos = () => {
       /* Esperamos la data */
       const dtoDataArray = await Promise.all(dtoDataPromises);
 
+
       /* Les agregamos los nuevos valores buscados a los objetos y retornamos todo en uno solo*/
       return objects.map((obj, index) => ({
         ...obj,
@@ -74,6 +84,38 @@ const ABMArticulos = () => {
         stockSeguridad: dtoDataArray[index].stockSeguridad
       }));
     };
+
+    const calculateCGI = async(entity) => {
+      try {
+        const response = await fetch(`${apiUrl}/${entityName}/cgi/${entity.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+        const data = await response.json();
+        Swal.fire({
+          title: `CGI: ${data}`,
+          background: "black",
+          color: "white",
+          padding: "1rem 2rem",
+          icon: "info",
+          toast: true,
+          position:"center",
+          confirmButtonColor:"#2596be",
+          confirmButtonText:"Aceptar"
+        });
+      } catch (error) {
+        Swal.fire({
+          text: `Error al calcular el CGI.`,
+          icon: "error",
+          showConfirmButton: false,
+          timer: 2000,
+          position: "top",
+        });
+        console.error(error.message);
+      }
+    }
 
     const handleCalcularCantidadVendida = async (id, fechaDesde, fechaHasta) => {
       try {
@@ -104,10 +146,15 @@ const ABMArticulos = () => {
     
 
     const renderArticuloActions = (entity) => (
-      <CalculateButton onClick={() => {
+      <div>
+        <CalculateButton onClick={() => {
           setSelectedEntity(entity);
           setIsCalcularModalOpen(true);
-      }}/>
+        }}/>
+        <CalculateCGIButton onClick={() => {
+          calculateCGI(entity)
+        }}/>
+      </div>
     );
 
     return (
@@ -121,7 +168,6 @@ const ABMArticulos = () => {
           extraDataFetch={extraDataFetch}
           createExcludedFields={createExcludedFields}
           renderActions={renderArticuloActions}
-          
         />
         {isCalcularModalOpen && (
             <CalcularCantidadModal

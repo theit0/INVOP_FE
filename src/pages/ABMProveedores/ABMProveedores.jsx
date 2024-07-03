@@ -52,12 +52,8 @@ const ABMProveedores = () => {
 
     const columns = [
         "id",
-        "fechaAlta",
-        "fechaBaja",
-        "fechaModificacion",
         "nombre",
         "direccion",
-        "telefono",
         "email"
     ];
     const nonEditableFields = [
@@ -88,7 +84,17 @@ const ABMProveedores = () => {
                 subEntityHandlers={{
                     addSubEntity: handleAddDemora,
                     removeSubEntity: handleRemoveDemora,
-                    subEntityComponent: AddDemoraProveedorArticulo,
+                    subEntityComponent: {
+                        component: AddDemoraProveedorArticulo,
+                        subEntityApiName: "articulo",
+                        fields: {
+                            articulo:"articulo",
+                            costoPedido:"Costo pedido",
+                            precioArt: "Precio Articulo",
+                            tiempoDemora: "Demora"
+                        },
+                        hasEditableDetails:true
+                    },
                     subEntityField: "demoraProveedorArticulos"
                 }} 
                 nonEditableFields={nonEditableFields}

@@ -12,20 +12,20 @@
 }
 
 .modal-label {
-    margin-bottom: .25rem;
+    padding-bottom: .25rem;
 }
 
 .modal-content {
     background: white;
     padding: 20px;
-    max-width: 600px;
+    max-width: 700px;
     width: 100%;
     max-height: calc(100% - 40px); /* Restamos el padding de los bordes para evitar que el modal exceda la pantalla */
     overflow-y: auto; /* Agregamos scroll vertical si es necesario */
 }
 
 .modal-content h2 {
-    margin-bottom: 1rem;
+    padding-bottom: 1rem;
 }
 
 .modal-content form {
